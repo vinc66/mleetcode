@@ -1,6 +1,3 @@
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,9 +20,63 @@ public class SolutionEasy {
 
 //        System.out.println(mySqrt(2147395599));
 
-        System.out.println(powerfulIntegers(2, 1, 10));
+//        System.out.println(powerfulIntegers(2, 1, 10));
+
+//        System.out.println(checkPerfectNumber(1));
+
+//        System.out.println(strStr("aaa", "aaaa"));
 
 
+    }
+
+
+    //    给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
+    public int strStr(String haystack, String needle) {
+        haystack.indexOf(needle);
+        if (haystack == null || needle == null) {
+            return -1;
+        }
+
+        if ("".equals(needle)) {
+            return 0;
+        }
+        char[] hays = haystack.toCharArray();
+        char[] neels = needle.toCharArray();
+        for (int i = 0; i < hays.length; i++) {
+            int tmpIndex = i;
+            int i1 = 0;
+            for (; i1 < neels.length && tmpIndex < hays.length; i1++, tmpIndex++) {
+                if (hays[tmpIndex] != neels[i1]) {
+                    break;
+                }
+            }
+            if (tmpIndex - i == neels.length) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //    对于一个 正整数，如果它和除了它自身以外的所有 正因子 之和相等，我们称它为 「完美数」。
+    //    给定一个 整数 n， 如果是完美数，返回 true，否则返回 false
+    public boolean checkPerfectNumber(int num) {
+        if (num < 2) {
+            return false;
+        }
+        int min = 1;
+        int max = num;
+        HashSet<Integer> factors = new HashSet<>();
+        factors.add(min);
+        while (min * min < num && min < max) {
+            min++;
+            if (num % min == 0) {
+                max = num / min;
+                factors.add(min);
+                factors.add(max);
+                continue;
+            }
+        }
+        return factors.stream().reduce((a, b) -> a + b).get() == num;
     }
 
 
